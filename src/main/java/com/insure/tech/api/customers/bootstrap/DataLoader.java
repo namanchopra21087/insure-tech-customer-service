@@ -29,7 +29,7 @@ System.out.println("here"+customerRepository.count());
 
 	private void loadCustomerObjects() {
 		Customer c1 = Customer.builder().id(UUID.randomUUID()).firstName("insure")
-				.lastName("tech").active(Boolean.TRUE)
+				.lastName("technology").active(Boolean.TRUE)
 				.createdDate(new Timestamp(System.currentTimeMillis()))
 				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("bob.dillon@email.com")
 				.build();
