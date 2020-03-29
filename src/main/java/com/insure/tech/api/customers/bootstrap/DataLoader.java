@@ -28,14 +28,14 @@ System.out.println("here"+customerRepository.count());
 	}
 
 	private void loadCustomerObjects() {
-		Customer c1 = Customer.builder().id(UUID.randomUUID()).firstName("bob")
-				.lastName("dillon").active(Boolean.TRUE)
+		Customer c1 = Customer.builder().id(UUID.randomUUID()).firstName("insure")
+				.lastName("tech").active(Boolean.TRUE)
 				.createdDate(new Timestamp(System.currentTimeMillis()))
 				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("bob.dillon@email.com")
 				.build();
 		
-		Customer c2 = Customer.builder().id(UUID.randomUUID()).firstName("Rob")
-				.lastName("rillon").active(Boolean.TRUE)
+		Customer c2 = Customer.builder().id(UUID.randomUUID()).firstName("customer")
+				.lastName("name").active(Boolean.TRUE)
 				.createdDate(new Timestamp(System.currentTimeMillis()))
 				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("Rob.rillon@email.com")
 				.build();
