@@ -1,6 +1,5 @@
 package com.insure.tech.api.customers.bootstrap;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
