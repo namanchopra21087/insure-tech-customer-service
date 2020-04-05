@@ -31,13 +31,13 @@ System.out.println("here"+customerRepository.count());
 		Customer c1 = Customer.builder().id(UUID.randomUUID()).firstName("insure")
 				.lastName("technology").active(Boolean.TRUE)
 				.createdDate(new Timestamp(System.currentTimeMillis()))
-				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("bob.dillon@email.com")
+				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("insure.technology@email.com")
 				.build();
 		
 		Customer c2 = Customer.builder().id(UUID.randomUUID()).firstName("customer")
-				.lastName("name").active(Boolean.TRUE)
+				.lastName("chanty").active(Boolean.TRUE)
 				.createdDate(new Timestamp(System.currentTimeMillis()))
-				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("Rob.rillon@email.com")
+				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("chanty.app@email.com")
 				.build();
 		
 		System.out.println("UUID ->"+customerRepository.save(c1).getId());
