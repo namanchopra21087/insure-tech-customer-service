@@ -4,15 +4,27 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.insure.tech.api.customers.common.HelperUtility;
 import com.insure.tech.api.customers.entity.Customer;
 import com.insure.tech.api.customers.model.CustomerDto;
+import com.insure.tech.api.customers.model.PolicyDto;
 import com.insure.tech.api.customers.repository.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,10 +32,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/customer")
 @RestController
-@CrossOrigin("*")
 public class CustomerController {
 	
 	private final CustomerRepository customerRepository;
+	private final RestTemplate restTemplate;
 	
 	
 	@GetMapping("/")
@@ -33,7 +45,17 @@ public class CustomerController {
 	
 	@GetMapping("/{id}")
 	ResponseEntity<CustomerDto> getCustomer(@PathVariable UUID id) {
-		return new ResponseEntity<>(customerToCustomerDto(customerRepository.findById(id).get()), HttpStatus.OK);
+		
+		String policyServiceUrl = String.format("http://policy-service/api/v1/customers/%s/policies",id); //TODO:Send it to config file
+		
+		ResponseEntity<List<PolicyDto>> policiesListResponse = restTemplate.exchange(policyServiceUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<PolicyDto>>() {
+        });
+        List<PolicyDto> policies = policiesListResponse.getBody(); 
+        CustomerDto customerResponseDto = customerToCustomerDto(customerRepository.findById(id).get());
+        customerResponseDto.setPolicies(policies);
+		
+		return new ResponseEntity<>(customerResponseDto, HttpStatus.OK);
+		
 	}
 	
 	@PostMapping("/")

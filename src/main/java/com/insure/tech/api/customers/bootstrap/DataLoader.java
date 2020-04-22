@@ -1,6 +1,5 @@
 package com.insure.tech.api.customers.bootstrap;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -40,8 +39,15 @@ System.out.println("here"+customerRepository.count());
 				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("chanty.app@email.com")
 				.build();
 		
+		Customer c3 = Customer.builder().id(UUID.randomUUID()).firstName("Tom")
+				.lastName("robby").active(Boolean.TRUE)
+				.createdDate(new Timestamp(System.currentTimeMillis()))
+				.lastModifiedDate(new Timestamp(System.currentTimeMillis())).email("Tom.robby@email.com")
+				.build();
+		
 		System.out.println("UUID ->"+customerRepository.save(c1).getId());
 		System.out.println("UUID ->"+customerRepository.save(c2).getId());
+		System.out.println("UUID ->"+customerRepository.save(c3).getId());
 		
 	}
 		
